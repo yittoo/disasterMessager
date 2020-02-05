@@ -27,3 +27,12 @@ export const ROUTE_NAMES = {
   Home: 'Home',
   ContactSelector: 'ContactSelector',
 };
+
+export const ASYNC_STORAGE_KEYS = {
+  scenarioMessages: 'scenarioMessages',
+};
+
+export const SCENARIO_MESSAGE_KEYS = {
+  GOOD: 'good',
+  BAD: 'bad',
+};

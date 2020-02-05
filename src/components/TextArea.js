@@ -6,7 +6,13 @@ import {COLORS} from '../constants';
 export const TextArea = props => {
   return (
     <View style={{...s.TextAreaWrapper, ...props.style}}>
-      <TextInput multiline style={s.TextArea} numberOfLines={4} />
+      <TextInput
+        multiline
+        style={s.TextArea}
+        numberOfLines={4}
+        onChangeText={text => props.onChangeText(text)}
+        value={props.value}
+      />
     </View>
   );
 };
