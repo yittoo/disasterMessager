@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 
 export const COLORS = {
   PRIMARY: '#a901db',
@@ -17,9 +17,11 @@ export const COLORS = {
   GRAY_1: '#ccc',
 };
 
-export const DEFAULT_VIEW_STYLE = StyleSheet.create({
+export const DEFAULT_VIEW_STYLE = {
   paddingHorizontal: 10,
-});
+  backgroundColor: COLORS.PRIMARY_LIGHT,
+  minHeight: Dimensions.get('window').height,
+};
 
 export const ROUTE_NAMES = {
   Home: 'Home',

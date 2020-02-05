@@ -11,20 +11,23 @@ const RouteConfigs = {
     screen: Main,
 
     navigationOptions: () => ({
-      headerTitle: 'testtt',
+      headerTitle: 'Main',
     }),
   },
   [ROUTE_NAMES.ContactSelector]: {
     screen: ContactsSelector,
 
     navigationOptions: () => ({
-      title: `Select Contacts`,
+      headerTitle: `Select Contacts`,
     }),
   },
 };
 
 const StackNavigatorConfig = {
   initialRouteName: ROUTE_NAMES.Home,
+  defaultNavigationOptions: data => {
+    return {};
+  },
 };
 
 export const MainNavigator = createStackNavigator(

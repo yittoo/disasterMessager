@@ -1,2 +1,2 @@
-export {Main} from './Main';
-export {ContactsSelector} from './ContactsSelector';
+export {default as Main} from './Main';
+export {default as ContactsSelector} from './ContactsSelector';

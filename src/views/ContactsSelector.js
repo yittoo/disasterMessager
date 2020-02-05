@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text, Button} from 'react-native';
 
-export const ContactsSelector = () => {
+const ContactsSelector = () => {
   return (
     <View>
       <Text>ContactsSelector</Text>
@@ -21,3 +21,5 @@ export const ContactsSelector = () => {
 };
 
 const s = StyleSheet.create({});
+
+export default ContactsSelector;

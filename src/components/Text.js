@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text as NativeText, StyleSheet} from 'react-native';
 
 import {COLORS} from '../constants';
 
 export const Text = ({children, textStyle, style}) => {
   return (
     <View style={{...s.Wrapper, ...style}}>
-      <Text style={{...s.Text, ...textStyle}}>{children}</Text>
+      <NativeText style={{...s.Text, ...textStyle}}>{children}</NativeText>
     </View>
   );
 };
