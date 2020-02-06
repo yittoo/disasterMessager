@@ -7,8 +7,11 @@ import {
   ToastAndroid,
   ActivityIndicator,
 } from 'react-native';
+import {connect} from 'react-redux';
 
+import {SelectContacts} from '../containers';
 import {Text, Button} from '../components';
+import {getContacts} from '../store/actions';
 import {DEFAULT_VIEW_STYLE, COLORS, ASYNC_STORAGE_KEYS} from '../constants';
 
 class ContactsSelector extends React.Component {
@@ -17,7 +20,6 @@ class ContactsSelector extends React.Component {
     this.state = {
       permissionsGiven: false,
       permissionsAsked: false,
-      contactsFetched: false,
     };
   }
 
@@ -26,8 +28,8 @@ class ContactsSelector extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!this.state.contactsFetched && this.state.permissionsGiven) {
-    }
+    // if (!this.state.contactsFetched && this.state.permissionsGiven) {
+    // }
   }
 
   checkPermissionsGiven = () => {
@@ -39,6 +41,7 @@ class ContactsSelector extends React.Component {
             permissionsGiven: JSON.parse(permissionsGiven),
           });
         }
+        this.props.getContacts();
       })
       .catch(err => {
         console.log('Error geting contacts permission value', err);
@@ -92,13 +95,12 @@ class ContactsSelector extends React.Component {
   };
 
   renderContent = () => {
-    const {permissionsGiven, permissionsAsked, contactsFetched} = this.state;
+    const {permissionsGiven, permissionsAsked} = this.state;
     if (permissionsGiven) {
-      if (contactsFetched) {
+      if (this.props.defaultReducer.contacts) {
         return (
           <>
-            <Text style={s.AuthTextBox}>Contacts rendered here</Text>
-            {/* TODO */}
+            <SelectContacts />
           </>
         );
       } else {
@@ -129,7 +131,6 @@ class ContactsSelector extends React.Component {
   };
 
   render() {
-    console.log(JSON.stringify(this.state, 0, 2));
     return <View style={DEFAULT_VIEW_STYLE}>{this.renderContent()}</View>;
   }
 }
@@ -137,8 +138,6 @@ class ContactsSelector extends React.Component {
 const s = StyleSheet.create({
   VerticallyCenter: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   AuthTextBox: {
     backgroundColor: COLORS.WHITE,
@@ -151,4 +150,12 @@ const s = StyleSheet.create({
   },
 });
 
-export default ContactsSelector;
+const mapStateToProps = ({defaultReducer}) => ({
+  defaultReducer,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getContacts: () => dispatch(getContacts()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactsSelector);
