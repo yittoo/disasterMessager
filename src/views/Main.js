@@ -74,7 +74,11 @@ class Main extends React.Component {
     const stringifiedValue = JSON.stringify(value);
     AsyncStorage.setItem(ASYNC_STORAGE_KEYS.scenarioMessages, stringifiedValue)
       .then(() => {
-        ToastAndroid.show('Scenario Messages Saved', ToastAndroid.SHORT);
+        ToastAndroid.showWithGravity(
+          'Scenario Messages Saved',
+          ToastAndroid.SHORT,
+          ToastAndroid.TOP,
+        );
       })
       .catch(err => {
         console.log('AsyncStorage.set Failed: ', err);
@@ -90,7 +94,6 @@ class Main extends React.Component {
 
   render() {
     const {navigation} = this.props;
-    // console.log(JSON.stringify(navigation, null, 2));
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={s.Main}>
@@ -134,9 +137,13 @@ class Main extends React.Component {
                 this.onSaveScenarioMessage(this.state.scenarioMessages);
                 Keyboard.dismiss();
               }}>
-              Save Message for Good Scenario
+              Save Scenario Messages
             </Button>
-            <Button onPress={() => this.getScenarioMessages()}>
+            <Button
+              onPress={() => {
+                this.getScenarioMessages();
+                Keyboard.dismiss();
+              }}>
               Cancel Change
             </Button>
           </View>

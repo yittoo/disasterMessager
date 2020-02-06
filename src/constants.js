@@ -30,6 +30,7 @@ export const ROUTE_NAMES = {
 
 export const ASYNC_STORAGE_KEYS = {
   scenarioMessages: 'scenarioMessages',
+  contactsPermissionsGiven: 'contactPermissions',
 };
 
 export const SCENARIO_MESSAGE_KEYS = {
