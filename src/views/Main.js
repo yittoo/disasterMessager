@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   AsyncStorage,
+  ToastAndroid,
 } from 'react-native';
 // import {useAsyncStorage} from '@react-native-community/async-storage';
 
@@ -43,7 +44,13 @@ class Main extends React.Component {
             scenarioMessages: JSON.parse(scenarioMessages),
           });
         } else {
-          // handle new scenario message creation TODO
+          this.setState({
+            ...this.state,
+            scenarioMessages: {
+              [SCENARIO_MESSAGE_KEYS.GOOD]: 'Good scenario message',
+              [SCENARIO_MESSAGE_KEYS.BAD]: 'Bad scenario message',
+            },
+          });
         }
       })
       .catch(err => {
@@ -64,7 +71,14 @@ class Main extends React.Component {
   };
 
   onSaveScenarioMessage = value => {
-    AsyncStorage.setItem(ASYNC_STORAGE_KEYS, JSON.stringify(value));
+    const stringifiedValue = JSON.stringify(value);
+    AsyncStorage.setItem(ASYNC_STORAGE_KEYS.scenarioMessages, stringifiedValue)
+      .then(() => {
+        ToastAndroid.show('Scenario Messages Saved', ToastAndroid.SHORT);
+      })
+      .catch(err => {
+        console.log('AsyncStorage.set Failed: ', err);
+      });
   };
 
   onChangeScenarioMessage = to => {
@@ -115,8 +129,16 @@ class Main extends React.Component {
           </View>
           <View style={s.Divider} />
           <View style={s.ButtonsWrapper}>
-            <Button>Save Message for Good Scenario</Button>
-            <Button>Cancel Change</Button>
+            <Button
+              onPress={() => {
+                this.onSaveScenarioMessage(this.state.scenarioMessages);
+                Keyboard.dismiss();
+              }}>
+              Save Message for Good Scenario
+            </Button>
+            <Button onPress={() => this.getScenarioMessages()}>
+              Cancel Change
+            </Button>
           </View>
           <View style={s.Divider} />
           <View style={s.ButtonsWrapper}>

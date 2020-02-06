@@ -1,23 +1,8 @@
 import React from 'react';
-import {View, StyleSheet, Text, Button} from 'react-native';
+import {View, StyleSheet, Button} from 'react-native';
 
 const ContactsSelector = () => {
-  return (
-    <View>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-      <Text>ContactsSelector</Text>
-    </View>
-  );
+  return <View></View>;
 };
 
 const s = StyleSheet.create({});
