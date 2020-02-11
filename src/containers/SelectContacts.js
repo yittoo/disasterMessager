@@ -6,7 +6,6 @@ import {Text, Button} from '../components';
 import {COLORS} from '../constants';
 
 const SelectContacts = props => {
-  const [selectedContacts, setSelectedContacts] = useState([]);
   const [contactsData, setContactsData] = useState([]);
   const contacts = useSelector(state => state.defaultReducer.contacts);
 
@@ -42,7 +41,6 @@ const SelectContacts = props => {
   const uncheckAllCheckboxes = () => {
     const copyContactsData = contactsData.map(c => ({...c, checked: false}));
     setContactsData(copyContactsData);
-    setSelectedContacts([]);
   };
 
   // TODO SEARCH NAME

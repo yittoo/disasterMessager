@@ -1,38 +1,92 @@
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+import React from 'react';
+import {View, Text} from 'react-native';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {ROUTE_NAMES} from '../constants';
 
-import {Main, ContactsSelector} from '../views';
+import {
+  Main,
+  ContactsSelector,
+  Settings,
+  ShareOnOtherApps,
+  Sms,
+  EditMessages,
+} from '../views';
 
-const RouteConfigs = {
-  // For each screen that you can navigate to, create a new entry like this:
-  [ROUTE_NAMES.Home]: {
-    screen: Main,
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-    navigationOptions: () => ({
-      headerTitle: 'Main',
-    }),
-  },
-  [ROUTE_NAMES.ContactSelector]: {
-    screen: ContactsSelector,
+function SmsAndContactStack() {
+  return (
+    <Stack.Navigator initialRouteName={ROUTE_NAMES.Sms}>
+      <Stack.Screen
+        component={() => (
+          <View>
+            <Text>SMS</Text>
+          </View>
+        )}
+        name={ROUTE_NAMES.Sms}
+        // component={Sms}
+        options={{title: 'SMS'}}
+      />
+      <Stack.Screen
+        name={ROUTE_NAMES.ContactSelector}
+        component={() => (
+          <View>
+            <Text>ContactSelector</Text>
+          </View>
+        )}
+        // component={ContactsSelector}
+        options={{title: 'Select Contacts'}}
+      />
+    </Stack.Navigator>
+  );
+}
 
-    navigationOptions: () => ({
-      headerTitle: `Select Contacts`,
-    }),
-  },
-};
+// function AppTabs() {
+//   return (
+//     <Tab.Navigator initialRouteName={ROUTE_NAMES.SmsContactSelectorStack}>
+//       <Tab.Screen
+//         name={ROUTE_NAMES.EditTemplates}
+//         component={EditMessages}
+//         options={{title: 'Edit Message'}}
+//       />
+//       <Tab.Screen
+//         name={ROUTE_NAMES.SmsContactSelectorStack}
+//         component={SmsAndContactStack}
+//         options={{title: 'Send SMS'}}
+//       />
+//       <Tab.Screen
+//         name={ROUTE_NAMES.ShareOnOther}
+//         component={ShareOnOtherApps}
+//         options={{title: 'Share on Other'}}
+//       />
+//     </Tab.Navigator>
+//   );
+// }
 
-const StackNavigatorConfig = {
-  initialRouteName: ROUTE_NAMES.Home,
-  defaultNavigationOptions: data => {
-    return {};
-  },
-};
+// function MainAndSettingsStack() {
+//   return (
+//     <Stack.Navigator initialRouteName={ROUTE_NAMES.AppTabs}>
+//       <Stack.Screen
+//         name={ROUTE_NAMES.AppTabs}
+//         component={AppTabs}
+//         options={{title: 'App'}}
+//       />
+//       <Stack.Screen
+//         name={ROUTE_NAMES.Settings}
+//         component={Settings}
+//         options={{title: 'Settings'}}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 
-export const MainNavigator = createStackNavigator(
-  RouteConfigs,
-  StackNavigatorConfig,
+export default () => (
+  <NavigationContainer>
+    <SmsAndContactStack />
+  </NavigationContainer>
 );
-
-export default createAppContainer(MainNavigator);

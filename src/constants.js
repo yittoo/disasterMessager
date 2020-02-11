@@ -24,7 +24,15 @@ export const DEFAULT_VIEW_STYLE = {
 };
 
 export const ROUTE_NAMES = {
+  Settings: 'Settings',
   Home: 'Home',
+
+  AppTabs: 'AppTabs',
+  EditTemplates: 'Edit',
+  ShareOnOther: 'Other',
+  SmsContactSelectorStack: 'SmsContact',
+
+  Sms: 'Sms',
   ContactSelector: 'ContactSelector',
 };
 
