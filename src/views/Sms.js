@@ -27,6 +27,12 @@ class Sms extends React.Component {
     const {navigation} = this.props;
     return (
       <View>
+        <Button
+          onPress={() =>
+            navigation.navigate({name: ROUTE_NAMES.ContactSelector})
+          }>
+          Select Contacts
+        </Button>
         <Text>Sms</Text>
       </View>
     );

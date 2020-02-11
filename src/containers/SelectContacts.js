@@ -5,6 +5,16 @@ import {useSelector} from 'react-redux';
 import {Text, Button} from '../components';
 import {COLORS} from '../constants';
 
+const Contact = ({name, checked, onChange, phone}) => (
+  <View style={s.Contact}>
+    <View>
+      <CheckBox value={checked} onValueChange={onChange} />
+    </View>
+    <Text style={s.Contact__Name}>{name}</Text>
+    <Text>{phone}</Text>
+  </View>
+);
+
 const SelectContacts = props => {
   const [contactsData, setContactsData] = useState([]);
   const contacts = useSelector(state => state.defaultReducer.contacts);
@@ -63,24 +73,15 @@ const SelectContacts = props => {
         />
       </View>
       <View style={s.ButtonsWrapper}>
-        <Button style={s.Button}>Save</Button>
+        <Button style={s.Button}>Cancel</Button>
         <Button style={s.Button} onPress={uncheckAllCheckboxes}>
-          Clear
+          Clear Selections
         </Button>
+        <Button style={s.Button}>Save</Button>
       </View>
     </View>
   );
 };
-
-const Contact = ({name, checked, onChange, phone}) => (
-  <View style={s.Contact}>
-    <View>
-      <CheckBox value={checked} onValueChange={onChange} />
-    </View>
-    <Text style={s.Contact__Name}>{name}</Text>
-    <Text>{phone}</Text>
-  </View>
-);
 
 const s = StyleSheet.create({
   Contacts: {
@@ -91,12 +92,11 @@ const s = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    flexBasis: 130,
+    flexBasis: 155,
     marginTop: 10,
   },
   Button: {
     marginHorizontal: 10,
-    width: 100,
   },
   ContactsList: {
     flex: 1,
