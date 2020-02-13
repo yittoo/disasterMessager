@@ -146,52 +146,6 @@ const AppTabs = () => (
   </Tab.Navigator>
 );
 
-// const MainAndSettingsStack = () => (
-//   <Stack.Navigator initialRouteName={ROUTE_NAMES.AppTabs}>
-//     <Stack.Screen
-//       name={ROUTE_NAMES.AppTabs}
-//       component={AppTabs}
-//       options={{
-//         title: 'App',
-//         header: ({scene, previous, navigation}) => {
-//           const {options} = scene.descriptor;
-//           const title =
-//             options.headerTitle !== undefined
-//               ? options.headerTitle
-//               : options.title !== undefined
-//               ? options.title
-//               : scene.route.name;
-//           return (
-//             <Header
-//               title={title}
-//               leftButton={
-//                 previous ? (
-//                   <Icon name="left" onPress={navigation.goBack} />
-//                 ) : null
-//               }
-//               rightButton={
-//                 <Icon
-//                   name="setting"
-//                   onPress={() =>
-//                     navigation.navigate({name: ROUTE_NAMES.Settings})
-//                   }
-//                   size={18}
-//                   color={COLORS.WHITE}
-//                 />
-//               }
-//             />
-//           );
-//         },
-//       }}
-//     />
-//     <Stack.Screen
-//       name={ROUTE_NAMES.Settings}
-//       component={Settings}
-//       options={{title: 'Settings'}}
-//     />
-//   </Stack.Navigator>
-// );
-
 export default () => (
   <NavigationContainer>
     <AppTabs />

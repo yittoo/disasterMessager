@@ -3,6 +3,7 @@ import * as ActionTypes from '../actionTypes';
 const initialState = {
   contacts: null,
   loading: false,
+  selectedContacts: [],
 };
 
 export default (state = initialState, {type, payload}) => {
@@ -12,6 +13,18 @@ export default (state = initialState, {type, payload}) => {
     case ActionTypes.GET_CONTACTS_SUCCESS:
       return {...state, contacts: payload, loading: false};
     case ActionTypes.GET_CONTACTS_FAIL:
+      return {...state, loading: false};
+    case ActionTypes.LOAD_SELECTED_CONTACTS_START:
+      return {...state, loading: true};
+    case ActionTypes.LOAD_SELECTED_CONTACTS_SUCCESS:
+      return {...state, selectedContacts: payload, loading: false};
+    case ActionTypes.LOAD_SELECTED_CONTACTS_FAIL:
+      return {...state, loading: false};
+    case ActionTypes.SAVE_SELECTED_CONTACTS_START:
+      return {...state, loading: true};
+    case ActionTypes.SAVE_SELECTED_CONTACTS_SUCCESS:
+      return {...state, selectedContacts: payload, loading: false};
+    case ActionTypes.SAVE_SELECTED_CONTACTS_FAIL:
       return {...state, loading: false};
     default:
       return state;

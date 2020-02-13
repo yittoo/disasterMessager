@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, CheckBox, FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 import {Text, Button} from '../components';
+import {saveSelectedContacts} from '../store/actions';
 import {COLORS} from '../constants';
 
 const Contact = ({name, checked, onChange, phone}) => (
@@ -17,17 +19,22 @@ const Contact = ({name, checked, onChange, phone}) => (
 
 const SelectContacts = props => {
   const [contactsData, setContactsData] = useState([]);
-  const contacts = useSelector(state => state.defaultReducer.contacts);
+  const {contacts, selectedContacts} = useSelector(
+    state => state.defaultReducer,
+  );
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const contactsReducedAndFiltered = contacts
       .map(c => {
         if (c.phoneNumbers && c.phoneNumbers[0]) {
+          const checked = selectedContacts.some(sc => sc.id === c.recordID);
           return {
             id: c.recordID,
             name: c.displayName,
             phone: c.phoneNumbers[0].number,
-            checked: false,
+            checked,
           };
         } else {
           return null;
@@ -53,9 +60,11 @@ const SelectContacts = props => {
     setContactsData(copyContactsData);
   };
 
-  // TODO SEARCH NAME
+  const saveSelectedContactsHandler = () => {
+    const newSelectedContacts = contactsData.filter(c => c.checked);
+    dispatch(saveSelectedContacts(newSelectedContacts));
+  };
 
-  // console.log(JSON.stringify(contacts, null, 2));
   return (
     <View style={s.Contacts}>
       <View style={s.ContactsList}>
@@ -73,11 +82,15 @@ const SelectContacts = props => {
         />
       </View>
       <View style={s.ButtonsWrapper}>
-        <Button style={s.Button}>Cancel</Button>
+        <Button style={s.Button} onPress={navigation.goBack}>
+          Cancel
+        </Button>
         <Button style={s.Button} onPress={uncheckAllCheckboxes}>
           Clear Selections
         </Button>
-        <Button style={s.Button}>Save</Button>
+        <Button style={s.Button} onPress={saveSelectedContactsHandler}>
+          Save
+        </Button>
       </View>
     </View>
   );
