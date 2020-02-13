@@ -4,6 +4,7 @@ const initialState = {
   contacts: null,
   loading: false,
   selectedContacts: [],
+  scenarioMessages: {},
 };
 
 export default (state = initialState, {type, payload}) => {
@@ -25,6 +26,18 @@ export default (state = initialState, {type, payload}) => {
     case ActionTypes.SAVE_SELECTED_CONTACTS_SUCCESS:
       return {...state, selectedContacts: payload, loading: false};
     case ActionTypes.SAVE_SELECTED_CONTACTS_FAIL:
+      return {...state, loading: false};
+    case ActionTypes.SAVE_SCENARIO_MESSAGES_START:
+      return {...state, loading: true};
+    case ActionTypes.SAVE_SCENARIO_MESSAGES_SUCCESS:
+      return {...state, scenarioMessages: payload, loading: false};
+    case ActionTypes.SAVE_SCENARIO_MESSAGES_FAIL:
+      return {...state, loading: false};
+    case ActionTypes.SAVE_SCENARIO_MESSAGES_START:
+      return {...state, loading: true};
+    case ActionTypes.SAVE_SCENARIO_MESSAGES_SUCCESS:
+      return {...state, scenarioMessages: payload, loading: false};
+    case ActionTypes.SAVE_SCENARIO_MESSAGES_FAIL:
       return {...state, loading: false};
     default:
       return state;

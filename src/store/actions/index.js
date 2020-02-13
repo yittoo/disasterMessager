@@ -35,9 +35,10 @@ export const loadSelectedContacts = () => dispatch => {
   AsyncStorage.getItem(ASYNC_STORAGE_KEYS.contactCachedSelections)
     .then(res => {
       const parsedRes = JSON.parse(res);
-      return dispatch(loadSelectedContactsSuccess(parsedRes));
+      dispatch(loadSelectedContactsSuccess(parsedRes));
+      return parsedRes;
     })
-    .catch(err => {
+    .catch(_ => {
       return dispatch(loadSelectedContactsFail());
     });
 };
@@ -64,10 +65,10 @@ export const saveSelectedContacts = contacts => dispatch => {
     ASYNC_STORAGE_KEYS.contactCachedSelections,
     JSON.stringify(contacts),
   )
-    .then(res => {
+    .then(_ => {
       return dispatch(saveSelectedContactsSuccess(contacts));
     })
-    .catch(err => {
+    .catch(_ => {
       return dispatch(saveSelectedContactsFail());
     });
 };
@@ -85,5 +86,64 @@ const saveSelectedContactsSuccess = payload => {
 const saveSelectedContactsFail = () => {
   return {
     type: ActionTypes.SAVE_SELECTED_CONTACTS_FAIL,
+  };
+};
+
+export const loadScenarioMessages = () => dispatch => {
+  dispatch(loadScenarioMessagesStart());
+  return AsyncStorage.getItem(ASYNC_STORAGE_KEYS.scenarioMessages)
+    .then(res => {
+      const parsedRes = JSON.parse(res);
+      dispatch(loadScenarioMessagesSuccess(parsedRes));
+      return parsedRes;
+    })
+    .catch(_ => {
+      return dispatch(loadScenarioMessagesFail());
+    });
+};
+const loadScenarioMessagesStart = () => {
+  return {
+    type: ActionTypes.LOAD_SCENARIO_MESSAGES_START,
+  };
+};
+const loadScenarioMessagesSuccess = payload => {
+  return {
+    type: ActionTypes.LOAD_SCENARIO_MESSAGES_SUCCESS,
+    payload,
+  };
+};
+const loadScenarioMessagesFail = () => {
+  return {
+    type: ActionTypes.LOAD_SCENARIO_MESSAGES_FAIL,
+  };
+};
+
+export const saveScenarioMessages = scenarioMessages => dispatch => {
+  dispatch(saveScenarioMessagesStart());
+  return AsyncStorage.setItem(
+    ASYNC_STORAGE_KEYS.scenarioMessages,
+    JSON.stringify(scenarioMessages),
+  )
+    .then(_ => {
+      return dispatch(saveScenarioMessagesSuccess(scenarioMessages));
+    })
+    .catch(_ => {
+      return dispatch(saveScenarioMessagesFail());
+    });
+};
+const saveScenarioMessagesStart = () => {
+  return {
+    type: ActionTypes.SAVE_SCENARIO_MESSAGES_START,
+  };
+};
+const saveScenarioMessagesSuccess = payload => {
+  return {
+    type: ActionTypes.SAVE_SCENARIO_MESSAGES_SUCCESS,
+    payload,
+  };
+};
+const saveScenarioMessagesFail = () => {
+  return {
+    type: ActionTypes.SAVE_SCENARIO_MESSAGES_FAIL,
   };
 };

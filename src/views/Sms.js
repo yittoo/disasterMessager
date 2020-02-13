@@ -7,7 +7,7 @@ import {
   AsyncStorage,
   ToastAndroid,
 } from 'react-native';
-// import {useAsyncStorage} from '@react-native-community/async-storage';
+import {connect} from 'react-redux';
 
 import {Button, TextArea, Text} from '../components';
 import {
@@ -26,12 +26,15 @@ class Sms extends React.Component {
   render() {
     const {navigation} = this.props;
     return (
-      <View>
+      <View style={s.Container}>
+        <View style={s.Divider} />
+        <View style={s.Divider} />
         <Button
           onPress={() =>
             navigation.navigate({name: ROUTE_NAMES.ContactSelector})
           }>
-          Select Contacts
+          Select Contacts (Currently Chosen:{' '}
+          {this.props.defaultReducer.selectedContacts.length})
         </Button>
         <Text>Sms</Text>
       </View>
@@ -39,6 +42,24 @@ class Sms extends React.Component {
   }
 }
 
-const s = StyleSheet.create({});
+const s = StyleSheet.create({
+  Container: {
+    ...DEFAULT_VIEW_STYLE,
+  },
+  ButtonsWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  Button: {
+    flexGrow: 1,
+  },
+  Divider: {
+    marginVertical: 5,
+  },
+});
 
-export default Sms;
+const mapStateToProps = ({defaultReducer}) => ({
+  defaultReducer,
+});
+
+export default connect(mapStateToProps)(Sms);

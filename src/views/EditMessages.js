@@ -7,55 +7,43 @@ import {
   AsyncStorage,
   ToastAndroid,
 } from 'react-native';
-// import {useAsyncStorage} from '@react-native-community/async-storage';
+import {connect} from 'react-redux';
 
-import {Button, TextArea, Text} from '../components';
+import {Button, TextArea, Text, Select} from '../components';
 import {
   DEFAULT_VIEW_STYLE,
   ROUTE_NAMES,
   ASYNC_STORAGE_KEYS,
   SCENARIO_MESSAGE_KEYS,
 } from '../constants';
+import {loadScenarioMessages, saveScenarioMessages} from '../store/actions';
 
 class EditMessages extends React.Component {
   constructor(props) {
     super(props);
+    this.defaultScenarioMessages = {
+      [SCENARIO_MESSAGE_KEYS.GOOD]: 'Good scenario',
+      [SCENARIO_MESSAGE_KEYS.BAD]: 'Bad scenario',
+    };
     this.state = {
       language: 'en',
       currentChosenScenarioMessage: SCENARIO_MESSAGE_KEYS.GOOD,
-      scenarioMessages: {
-        [SCENARIO_MESSAGE_KEYS.GOOD]: 'Good scenario message',
-        [SCENARIO_MESSAGE_KEYS.BAD]: 'Bad scenario message',
-      },
+      scenarioMessages: this.defaultScenarioMessages,
     };
   }
 
   componentDidMount() {
-    this.getScenarioMessages();
+    this.asyncLoadScenarioMessages();
   }
 
-  getScenarioMessages = () => {
-    AsyncStorage.getItem(ASYNC_STORAGE_KEYS.scenarioMessages)
-      .then(scenarioMessages => {
-        if (scenarioMessages) {
-          this.setState({
-            ...this.state,
-            scenarioMessages: JSON.parse(scenarioMessages),
-          });
-        } else {
-          this.setState({
-            ...this.state,
-            scenarioMessages: {
-              [SCENARIO_MESSAGE_KEYS.GOOD]: 'Good scenario message',
-              [SCENARIO_MESSAGE_KEYS.BAD]: 'Bad scenario message',
-            },
-          });
-        }
-      })
-      .catch(err => {
-        console.log('Error geting scenario messages');
-        console.log(err);
+  asyncLoadScenarioMessages = async () => {
+    const scenarioMessages = await this.props.loadScenarioMessages();
+    if (scenarioMessages) {
+      this.setState({
+        ...this.state,
+        scenarioMessages,
       });
+    }
   };
 
   onScenarioMessageUpdate = (targetScenarioMessage, value) => {
@@ -69,19 +57,15 @@ class EditMessages extends React.Component {
     });
   };
 
+  onDefaultScenarioMessage = () => {
+    this.setState({
+      ...this.state,
+      scenarioMessages: this.defaultScenarioMessages,
+    });
+  };
+
   onSaveScenarioMessage = value => {
-    const stringifiedValue = JSON.stringify(value);
-    AsyncStorage.setItem(ASYNC_STORAGE_KEYS.scenarioMessages, stringifiedValue)
-      .then(() => {
-        ToastAndroid.showWithGravity(
-          'Scenario Messages Saved',
-          ToastAndroid.SHORT,
-          ToastAndroid.TOP,
-        );
-      })
-      .catch(err => {
-        console.log('AsyncStorage.set Failed: ', err);
-      });
+    this.props.saveScenarioMessages(value);
   };
 
   onChangeScenarioMessage = to => {
@@ -94,59 +78,61 @@ class EditMessages extends React.Component {
   render() {
     const {navigation} = this.props;
     return (
-      <View style={s.Container}>
-        <View style={s.Divider} />
-        <View style={s.Divider} />
-        <View style={s.ButtonsWrapper}>
-          <Button
-            style={s.Button}
-            onPress={() =>
-              this.onChangeScenarioMessage(SCENARIO_MESSAGE_KEYS.GOOD)
-            }>
-            Good Scenario
-          </Button>
-          <Button
-            style={s.Button}
-            onPress={() =>
-              this.onChangeScenarioMessage(SCENARIO_MESSAGE_KEYS.BAD)
-            }>
-            Bad Scenario
-          </Button>
-        </View>
-        <View style={s.Divider} />
-        <View>
-          <TextArea
-            onChangeText={text =>
-              this.onScenarioMessageUpdate(
-                this.state.currentChosenScenarioMessage,
-                text,
-              )
-            }
-            value={
-              this.state.scenarioMessages[
-                this.state.currentChosenScenarioMessage
-              ]
-            }
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={s.Container}>
+          <View style={s.Divider} />
+          <View style={s.Divider} />
+          <Select
+            onValueChange={value => this.onChangeScenarioMessage(value)}
+            items={[
+              {label: 'Good scenario', value: SCENARIO_MESSAGE_KEYS.GOOD},
+              {label: 'Bad Scenario', value: SCENARIO_MESSAGE_KEYS.BAD},
+            ]}
+            value={this.state.currentChosenScenarioMessage}
+            placeholder={{}}
           />
+          <View style={s.Divider} />
+          <View>
+            <TextArea
+              onChangeText={text =>
+                this.onScenarioMessageUpdate(
+                  this.state.currentChosenScenarioMessage,
+                  text,
+                )
+              }
+              value={
+                this.state.scenarioMessages[
+                  this.state.currentChosenScenarioMessage
+                ]
+              }
+            />
+          </View>
+          <View style={s.Divider} />
+          <View style={s.ButtonsWrapper}>
+            <Button
+              onPress={() => {
+                this.asyncLoadScenarioMessages();
+                Keyboard.dismiss();
+              }}>
+              Cancel Change
+            </Button>
+            <Button
+              onPress={() => {
+                this.onDefaultScenarioMessage();
+                Keyboard.dismiss();
+              }}>
+              Default
+            </Button>
+            <Button
+              onPress={() => {
+                this.onSaveScenarioMessage(this.state.scenarioMessages);
+                Keyboard.dismiss();
+              }}>
+              Save Scenario Messages
+            </Button>
+          </View>
         </View>
-        <View style={s.Divider} />
-        <View style={s.ButtonsWrapper}>
-          <Button
-            onPress={() => {
-              this.onSaveScenarioMessage(this.state.scenarioMessages);
-              Keyboard.dismiss();
-            }}>
-            Save Scenario Messages
-          </Button>
-          <Button
-            onPress={() => {
-              this.getScenarioMessages();
-              Keyboard.dismiss();
-            }}>
-            Cancel Change
-          </Button>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -157,8 +143,7 @@ const s = StyleSheet.create({
   },
   ButtonsWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   Button: {
     flexGrow: 1,
@@ -168,4 +153,14 @@ const s = StyleSheet.create({
   },
 });
 
-export default EditMessages;
+const mapStateToProps = ({defaultReducer}) => ({
+  defaultReducer,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loadScenarioMessages: () => dispatch(loadScenarioMessages()),
+  saveScenarioMessages: scenarioMessages =>
+    dispatch(saveScenarioMessages(scenarioMessages)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditMessages);
