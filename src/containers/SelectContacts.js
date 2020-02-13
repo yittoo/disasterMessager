@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, CheckBox, FlatList} from 'react-native';
+import {View, StyleSheet, CheckBox, FlatList, ToastAndroid} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
@@ -63,6 +63,8 @@ const SelectContacts = props => {
   const saveSelectedContactsHandler = () => {
     const newSelectedContacts = contactsData.filter(c => c.checked);
     dispatch(saveSelectedContacts(newSelectedContacts));
+    ToastAndroid.show('Contacts saved', ToastAndroid.SHORT);
+    navigation.goBack();
   };
 
   return (
