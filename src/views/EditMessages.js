@@ -85,7 +85,7 @@ class EditMessages extends React.Component {
           <Select
             onValueChange={value => this.onChangeScenarioMessage(value)}
             items={[
-              {label: 'Good scenario', value: SCENARIO_MESSAGE_KEYS.GOOD},
+              {label: 'Good Scenario', value: SCENARIO_MESSAGE_KEYS.GOOD},
               {label: 'Bad Scenario', value: SCENARIO_MESSAGE_KEYS.BAD},
             ]}
             value={this.state.currentChosenScenarioMessage}
@@ -128,7 +128,7 @@ class EditMessages extends React.Component {
                 this.onSaveScenarioMessage(this.state.scenarioMessages);
                 Keyboard.dismiss();
               }}>
-              Save Scenario Messages
+              Save Scenario
             </Button>
           </View>
         </View>
