@@ -23,7 +23,7 @@ const s = StyleSheet.create({
     borderColor: COLORS.DARK_3,
     borderWidth: 1,
     borderRadius: 5,
-    elevation: 4,
+    elevation: 7,
   },
   TextArea: {paddingVertical: 8, paddingHorizontal: 15},
 });

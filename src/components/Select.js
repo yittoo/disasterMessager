@@ -19,7 +19,7 @@ const s = StyleSheet.create({
     borderColor: COLORS.GRAY_1,
     borderWidth: 1,
     borderRadius: 10,
-    elevation: 1,
+    elevation: 7,
     overflow: 'hidden',
     paddingHorizontal: 10,
   },

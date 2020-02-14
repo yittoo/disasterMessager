@@ -5652,6 +5652,11 @@ react-native-screens@^2.0.0-beta.2:
   dependencies:
     debounce "^1.2.0"
 
+react-native-sms@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-sms/-/react-native-sms-1.10.0.tgz#ee7607e8ad36452f9d3aaa2005e69225857c15f0"
+  integrity sha512-IhP+w39Exu3mwksNIk7MIgDjFXqvNIlaWvhNPlRQxo5AYKNdluNIQBWqXdHHqlAgHhs2k6lmcLu2Y0TlHkowSQ==
+
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"
