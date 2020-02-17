@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import SendSMS from 'react-native-sms';
 
 import {Button, Select, Text} from '../components';
+import {GetCoords} from '../helpers';
 import {loadScenarioMessages} from '../store/actions';
 import {
   COLORS,
@@ -24,11 +25,13 @@ class Sms extends React.Component {
     super(props);
     this.state = {
       currentChosenScenarioMessage: null,
+      coordinatesInfo: '',
     };
   }
 
   componentDidMount() {
     this.asyncLoadScenarioMessages();
+    this.asyncGetCoordinatesInfo();
   }
 
   asyncLoadScenarioMessages = async () => {
@@ -74,9 +77,19 @@ class Sms extends React.Component {
     );
   };
 
+  asyncGetCoordinatesInfo = async () => {
+    const coordinatesInfo = await GetCoords();
+    if (coordinatesInfo) {
+      this.setState({
+        ...this.state,
+        coordinatesInfo,
+      });
+    }
+  };
+
   render() {
     const {navigation} = this.props;
-    const {currentChosenScenarioMessage} = this.state;
+    const {currentChosenScenarioMessage, coordinatesInfo} = this.state;
     const {scenarioMessages, selectedContacts} = this.props.defaultReducer;
     return (
       <View style={s.Container}>
@@ -108,7 +121,7 @@ class Sms extends React.Component {
         <View style={s.Divider} />
         <Text style={s.MessagePreview} textStyle={s.MessagePreviewText}>
           {scenarioMessages[currentChosenScenarioMessage]
-            ? scenarioMessages[currentChosenScenarioMessage]
+            ? `${scenarioMessages[currentChosenScenarioMessage]} ${coordinatesInfo}`
             : 'Please select a scenario message'}
         </Text>
         <View style={s.Divider} />
@@ -118,7 +131,7 @@ class Sms extends React.Component {
           onPress={() =>
             this.sendSms(
               selectedContacts,
-              scenarioMessages[currentChosenScenarioMessage],
+              `${scenarioMessages[currentChosenScenarioMessage]} ${coordinatesInfo}`,
             )
           }>
           Send the message to all chosen contacts

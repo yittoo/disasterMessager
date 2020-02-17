@@ -1051,6 +1051,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.0.0.tgz#ae9a430f2c5795debca491f15a989fce86ea75a0"
   integrity sha512-GLhSN8dRt4lpixPQh+8prSCy6PYk/MT/mvji/ojAd5yshowDo6HFsimCSTD/uWAdjpUq91XK9tVdTNWfGRlKQA==
 
+"@react-native-community/geolocation@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/geolocation/-/geolocation-1.4.2.tgz#7228c6d37c2f55017af9c49c2b9ad586d9bcb9f8"
+  integrity sha512-9x9dHDeUXnh2larA4zTT3y/tXPmRnysh5o9fsNbGcnUKPj1BUCIHnGGPxEIDnwP1DNIMP2DN9DmuMHImtTbX6A==
+
 "@react-native-community/masked-view@^0.1.6":
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.6.tgz#c7f2ac187c1f25aa8c30d11baa8f4398eca3bb84"
@@ -5600,6 +5605,13 @@ react-native-contacts@^5.0.7:
   resolved "https://registry.yarnpkg.com/react-native-contacts/-/react-native-contacts-5.0.7.tgz#19b59edd3702ebdc389db266089e5f9370ea7501"
   integrity sha512-IRMiJCBJ98nK4v/oNueD1hXiqbmUOgncSIdL60NVSygH4ksqn2E2ipGwy81GAYmMk/yRgJgDB47QmOBlYt9Q1g==
 
+react-native-geolocation-service@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-geolocation-service/-/react-native-geolocation-service-4.0.0.tgz#257187ea08965dac16016edd383454d310eb7809"
+  integrity sha512-t62cwQdMjlTLFCjJ1Kr924YIV3WMzQ6KgqEdrICaN2fHdTIjzW8mwoPGFqACu2WtPHLL6btIVG10dYHV7zntHQ==
+  dependencies:
+    "@react-native-community/geolocation" "^1.4.2"
+
 react-native-gesture-handler@^1.5.6:
   version "1.5.6"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.5.6.tgz#5d90145f624e3707db2930f43ab41579683e2375"
@@ -5651,6 +5663,11 @@ react-native-screens@^2.0.0-beta.2:
   integrity sha512-N+k4S/Wr+YGjzuGF49fB4VjIG6Fcaj4md3uxTsyeshEILGptPWAlgb5hAgn6C9xOj1x/rrAoXwZmrPNxPw6CSg==
   dependencies:
     debounce "^1.2.0"
+
+react-native-share@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-3.0.0.tgz#5e158f773ebc91e35fbe48ffe21c0073c2c8f41a"
+  integrity sha512-5P/Fhou5jW1yY475h+wIR+VZAUZ1Gnx8N4QKGToOLNo1yUhDeLxYRhm3bGCcS/MEy35NOZ222/43SQGfUzCl/g==
 
 react-native-sms@^1.10.0:
   version "1.10.0"
