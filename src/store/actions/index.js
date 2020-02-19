@@ -2,7 +2,12 @@ import Contacts from 'react-native-contacts';
 import {AsyncStorage} from 'react-native';
 
 import * as ActionTypes from '../actionTypes';
-import {ASYNC_STORAGE_KEYS} from '../../constants';
+import {ASYNC_STORAGE_KEYS, SCENARIO_MESSAGE_KEYS} from '../../constants';
+
+const defaultScenarioMessages = {
+  [SCENARIO_MESSAGE_KEYS.GOOD]: 'Good default sce message',
+  [SCENARIO_MESSAGE_KEYS.BAD]: 'Bad default sce message',
+};
 
 export const getContacts = () => dispatch => {
   dispatch(getContactsStart());
@@ -35,8 +40,12 @@ export const loadSelectedContacts = () => dispatch => {
   AsyncStorage.getItem(ASYNC_STORAGE_KEYS.contactCachedSelections)
     .then(res => {
       const parsedRes = JSON.parse(res);
-      dispatch(loadSelectedContactsSuccess(parsedRes));
-      return parsedRes;
+      if (parsedRes) {
+        dispatch(loadSelectedContactsSuccess(parsedRes));
+        return parsedRes;
+      }
+      dispatch(loadSelectedContactsSuccess([]));
+      return [];
     })
     .catch(_ => {
       return dispatch(loadSelectedContactsFail());
@@ -94,8 +103,12 @@ export const loadScenarioMessages = () => dispatch => {
   return AsyncStorage.getItem(ASYNC_STORAGE_KEYS.scenarioMessages)
     .then(res => {
       const parsedRes = JSON.parse(res);
-      dispatch(loadScenarioMessagesSuccess(parsedRes));
-      return parsedRes;
+      if (parsedRes) {
+        dispatch(loadScenarioMessagesSuccess(parsedRes));
+        return parsedRes;
+      }
+      dispatch(loadScenarioMessagesSuccess(defaultScenarioMessages));
+      return defaultScenarioMessages;
     })
     .catch(_ => {
       return dispatch(loadScenarioMessagesFail());

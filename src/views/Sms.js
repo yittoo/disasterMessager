@@ -83,7 +83,7 @@ class Sms extends React.Component {
   render() {
     const {navigation} = this.props;
     const {currentChosenScenarioMessage, coordinatesInfo} = this.state;
-    const {scenarioMessages, selectedContacts} = this.props.defaultReducer;
+    const {scenarioMessages, selectedContacts} = this.props.mainReducer;
     return (
       <View style={s.Container}>
         <View style={s.Divider} />
@@ -162,8 +162,8 @@ const s = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({defaultReducer}) => ({
-  defaultReducer,
+const mapStateToProps = ({mainReducer}) => ({
+  mainReducer,
 });
 
 const mapDispatchToProps = dispatch => ({

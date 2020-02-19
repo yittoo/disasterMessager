@@ -97,7 +97,7 @@ class ContactsSelector extends React.Component {
   renderContent = () => {
     const {permissionsGiven, permissionsAsked} = this.state;
     if (permissionsGiven) {
-      if (this.props.defaultReducer.contacts) {
+      if (this.props.mainReducer.contacts) {
         return (
           <>
             <SelectContacts />
@@ -150,8 +150,8 @@ const s = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({defaultReducer}) => ({
-  defaultReducer,
+const mapStateToProps = ({mainReducer}) => ({
+  mainReducer,
 });
 
 const mapDispatchToProps = dispatch => ({

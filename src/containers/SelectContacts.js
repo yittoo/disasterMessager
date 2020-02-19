@@ -19,9 +19,7 @@ const Contact = ({name, checked, onChange, phone}) => (
 
 const SelectContacts = props => {
   const [contactsData, setContactsData] = useState([]);
-  const {contacts, selectedContacts} = useSelector(
-    state => state.defaultReducer,
-  );
+  const {contacts, selectedContacts} = useSelector(state => state.mainReducer);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 

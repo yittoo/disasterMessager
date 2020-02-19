@@ -59,7 +59,7 @@ class ShareOnOtherApps extends React.Component {
 
   render() {
     const {currentChosenScenarioMessage, coordinatesInfo} = this.state;
-    const {scenarioMessages} = this.props.defaultReducer;
+    const {scenarioMessages} = this.props.mainReducer;
     return (
       <View style={s.Container}>
         <View style={s.Divider} />
@@ -121,8 +121,8 @@ const s = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({defaultReducer}) => ({
-  defaultReducer,
+const mapStateToProps = ({mainReducer}) => ({
+  mainReducer,
 });
 
 const mapDispatchToProps = dispatch => ({

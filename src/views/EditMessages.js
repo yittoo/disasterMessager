@@ -153,8 +153,8 @@ const s = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({defaultReducer}) => ({
-  defaultReducer,
+const mapStateToProps = ({mainReducer}) => ({
+  mainReducer,
 });
 
 const mapDispatchToProps = dispatch => ({
