@@ -1,21 +1,9 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Keyboard,
-  AsyncStorage,
-  ToastAndroid,
-} from 'react-native';
+import {View, StyleSheet, AsyncStorage, ToastAndroid} from 'react-native';
 // import {useAsyncStorage} from '@react-native-community/async-storage';
 
-import {Button, TextArea, Text} from '../components';
-import {
-  DEFAULT_VIEW_STYLE,
-  ROUTE_NAMES,
-  ASYNC_STORAGE_KEYS,
-  SCENARIO_MESSAGE_KEYS,
-} from '../constants';
+import {Button, Select, Text} from '../components';
+import {DEFAULT_VIEW_STYLE, ASYNC_STORAGE_KEYS} from '../constants';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -23,16 +11,35 @@ class Settings extends React.Component {
     this.state = {};
   }
 
+  onLanguageChange = targetLng => {};
+
   render() {
-    const {navigation} = this.props;
     return (
-      <View>
-        <Text>Settings</Text>
+      <View style={s.Container}>
+        <View style={s.Divider} />
+        <View style={s.Divider} />
+        <Text>Language:</Text>
+        <View style={s.Divider} />
+        <Select
+          onValueChange={value => this.onLanguageChange(value)}
+          items={[{label: 'English', value: 'en'}]}
+          // value={this.state.currentChosenScenarioMessage}
+          placeholder={{}}
+        />
+        <View style={s.Divider} />
+        <View style={s.Divider} />
+        <Button>Save</Button>
       </View>
     );
   }
 }
 
-const s = StyleSheet.create({});
-
+const s = StyleSheet.create({
+  Container: {
+    ...DEFAULT_VIEW_STYLE,
+  },
+  Divider: {
+    marginVertical: 5,
+  },
+});
 export default Settings;
