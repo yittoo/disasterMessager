@@ -1,23 +1,58 @@
 import * as ActionTypes from '../actionTypes';
 
+const languageOptions = {
+  ENG: {
+    label: 'English',
+    value: 'ENG', // always keep it same to KEY from parent
+  },
+};
+
 const initialState = {
   loading: false,
-  currentChosen: 'en',
+  currentChosen: languageOptions.ENG.value,
+  options: languageOptions,
   views: {
     ContactsSelector: {
-      en: {},
+      [languageOptions.ENG]: {
+        // TODO FIX CRASH ON EMPTY CONTACTS
+      },
     },
     EditMessages: {
-      en: {},
+      [languageOptions.ENG]: {
+        options: {
+          /* TODO */
+        },
+        defaultMessages: {
+          /* TODO */
+        },
+        cancelButton: 'Cancel Change',
+        defaultButton: 'Default',
+        saveButton: 'Save Scenario',
+      },
     },
     Sms: {
-      en: {},
+      [languageOptions.ENG]: {
+        selectContactsTitle: 'Select Contacts (Currently Chosen: ',
+        selectMessageTitle: 'Please select message to send',
+        options: {
+          /* TODO */
+        },
+        messagePreviewTitle: 'Message Preview',
+        submitButton: 'Send the message to all chosen contacts',
+      },
     },
     ShareOnOtherApps: {
-      en: {},
+      [languageOptions.ENG]: {
+        selectMessageTitle: 'Please select message to share',
+        messagePreviewTitle: 'Message Preview',
+        options: {
+          /* TODO */
+        },
+        submitButton: 'Share on another app',
+      },
     },
     Settings: {
-      en: {
+      [languageOptions.ENG]: {
         languageTitle: 'Language',
         save: 'Save',
       },
