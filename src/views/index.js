@@ -1,4 +1,3 @@
-export {default as Main} from './Main';
 export {default as Settings} from './Settings';
 export {default as ContactsSelector} from './ContactsSelector';
 export {default as Sms} from './Sms';
