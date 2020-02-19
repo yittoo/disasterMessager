@@ -39,6 +39,7 @@ const initialState = {
         },
         messagePreviewTitle: 'Message Preview',
         submitButton: 'Send the message to all chosen contacts',
+        submitButtonNoContacts: 'No contacts chosen',
       },
     },
     ShareOnOtherApps: {
